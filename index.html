@@ -1,0 +1,186 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio Rover - Iron Hack</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style>
+        table {
+
+            border-collapse: collapse;
+            text-align: center;
+            vertical-align: middle;
+            position: absolute;
+        }
+
+        tr {
+            border: 0px rgba(0, 0, 0, 0.2) solid;
+        }
+
+        .obstaculo {
+            background-color: yellow;
+        }
+
+        .mars {
+            background-image: url('./img/Ladon-basin-in-full-color.jpg');
+            background-size: cover;
+        }
+
+        td.cell {
+            padding: 0;
+            border: 0px;
+        }
+
+        p {
+            font-size: 8px;
+        }
+
+        h5 {
+            margin-bottom: 2px;
+            margin-top: 10px;
+        }
+
+        .color-rojo {
+            color: red;
+        }
+
+        .color-azul {
+            color: blue;
+        }
+
+        .color-pink {
+            color: pink
+        }
+
+        .color-verde {
+            color: green;
+        }
+
+        img.espacio-rover {
+            position: relative;
+            width: 13px;
+            padding: 2px;
+            margin-left: 2px;
+            top: 20px;
+            transition: all 2s linear;
+        }
+
+        img.espacio-rover2 {
+            position: relative;
+            width: 13px;
+            padding: 2px;
+            margin-left: 2px;
+            top: 20px;
+            transition: all 2s linear;
+        }
+
+        #lienzo {
+            display: flex;
+            justify-content: center;
+            padding-top: 10px;
+            min-height: calc(100vh - 160px);
+        }
+
+        #datos {
+            height: 60px;
+        }
+
+        .filaDatos {
+            padding: 20px 16%;
+        }
+
+        .col>label {
+            text-align: center;
+            width: 100%;
+            font-size: 10px;
+        }
+
+        .numDatos {
+            text-align: center;
+            padding-top: 0px
+        }
+
+        .slideDatos {
+            padding-bottom: 0px;
+        }
+    </style>
+    <script src="rover.js"></script>
+</head>
+
+<body>
+
+    <div class="container bg-light">
+
+        <div class="row filaDatos slideDatos">
+            <div class="col">
+                <label id="cellSizeLabel1" for="customRange1">Tamaño Tabla</label>
+                <input type="range" class="custom-range" min="5" max="50" value="30" id="customRange1">
+
+            </div>
+            <div class="col">
+                <label id="cellSizeLabel2" for="customRange2">Número Obstáculos</label>
+                <input type="range" class="custom-range" min="1" max="20" value="10" id="customRange2">
+
+            </div>
+            <div class="col">
+                <label id="cellSizeLabel3" for="customRange3">Número Comandos</label>
+                <input type="range" class="custom-range" min="10" max="1500" value="100" id="customRange3">
+
+            </div>
+            <div class="col">
+                <label id="cellSizeLabel4" for="customRange4">Velocidad Comandos</label>
+                <input type="range" class="custom-range" min="15" max="500" value="20" id="customRange4">
+
+            </div>
+            <div class="col">
+                <button id="startBtn" type="button" class="btn btn-success btn-block">Start</button>
+            </div>
+            <!-- <div class="col">
+                <button id="stopBtn" type="button" class="btn btn-danger btn-block">Stop</button>
+            </div> -->
+        </div>
+        <div class="row filaDatos numDatos">
+            <div id="datos1" class="col">
+            </div>
+            <div id="datos2" class="col">
+            </div>
+            <div id="datos3" class="col">
+            </div>
+            <div id="datos4" class="col">
+            </div>
+            <div class="col">
+            </div>
+            <!-- <div class="col">
+            </div> -->
+        </div>
+        <!-- <div class="row filaDatos">
+            <div class="col-12">
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                        aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 50%"></div>
+                </div>
+            </div>
+        </div> -->
+        <div class="row">
+            <div id="lienzo" class="col text-center bg-light"></div>
+        </div>
+    </div>
+    <!-- <h5>Movimientos Rover 1:</h5>
+    <p id="move-list-r1"></p>
+    <h5>Movimientos Rover 2:</h5>
+    <p id="move-list-r2"></p> -->
+</body>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+</script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+</script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+</script>
+
+</html>
