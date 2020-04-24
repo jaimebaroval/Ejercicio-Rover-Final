@@ -6,13 +6,13 @@ let tableSize = {
 }
 let tableCellSize = window.innerHeight / (tableSize.y * 1.28)
 let fontSize = window.innerHeight / (tableSize.y * 2.5)
-let numObstaculos = 10 * (tableSize.x * tableSize.y) / 100 // 10% de obstaculos
+let numObstaculos = 10 * (tableSize.x * tableSize.y) / 100 // % de obstaculos
 let numCommands = 100
 let velVisionCommands = 20
 let occupiedCells = []
+let obstaculosArray = []
 
 const tableArray = []
-const obstaculosArray = []
 const roversArray = []
 const directions = ['N', 'S', 'E', 'W']
 const commands = ['F', 'B', 'R', 'L']
@@ -88,7 +88,9 @@ Rover.prototype = {
 
     },
     createCommands(i) {
+
         this.commandList = []
+
         for (i = 0; i < numCommands; i++) {
             this.commandList[i] = commands[Math.floor(Math.random() * commands.length)]
         }
@@ -133,6 +135,7 @@ Rover.prototype = {
                 this.drawRoverMove()
             }
         }
+
     },
     moveRover(command) {
         this.posBefore.x = this.posActual.x
@@ -207,19 +210,20 @@ Rover.prototype = {
         afterCell.style.backgroundColor = this.cellAfterColor
         afterCell.style.color = 'white'
 
-        this.savePosLog(this.posBefore)
-    },
-    savePosLog: function (cellExplored) {
-
-        // cellExplored.x = this.posActual.x
-        // cellExplored.y = this.posActual.y
-
-
-        // console.log('cellExplored: ' + cellExplored.x + ' , ' + cellExplored.y);
-        // console.log(occupiedCells);
-
-
     }
+    // saveRoverPos() {
+    //     this.idActual = 'x' + this.posActual.x + 'y' + this.posActual.y
+    //     this.idAfter = 'x' + this.posAfter.x + 'y' + this.posAfter.y
+
+    //     let newCell = document.getElementById(this.idActual)
+    //     let afterCell = document.getElementById(this.idAfter)
+
+    //     newCell.innerHTML = this.name
+    //     newCell.style.backgroundColor = this.color
+    //     newCell.style.color = 'white'
+
+    //     afterCell = occupiedCells.push(afterCell)
+    // }
 
 }
 
@@ -285,8 +289,6 @@ function CreateMars(x, y) {
     // Cell Height adjust
     let cellHeight = document.querySelectorAll('td.cell')
 
-    // body.style.height = `${window.innerHeight - 100}px`
-
     cellHeight.forEach(function (e) {
         e.style.height = `${tableCellSize}px`
         e.style.width = `${tableCellSize}px`
@@ -298,6 +300,7 @@ function CreateMars(x, y) {
 // CreateMars () Prototype
 CreateMars.prototype = {
     createObstaculos: function (numObs) {
+
         let posObs
 
         console.log('numObstaculos ' + numObs);
@@ -321,7 +324,6 @@ CreateMars.prototype = {
 
         }
 
-        console.log(obstaculosArray);
 
     },
     drawObstacle: function (posOb) {
@@ -363,15 +365,17 @@ function initRovers() {
         arguments[i].createCommands(numCommands)
         arguments[i].drawRover()
 
-        // console.log(arguments[i]);
         console.log('commandList: ' + arguments[i].commandList);
+        console.log('commandList Length: ' + arguments[i].commandList.length);
     }
 
 
 
-    console.log(occupiedCells);
+    console.log('Obstaculos Array: ');
+    console.log(obstaculosArray);
 
-    startBtn.disabled = false
+
+    console.log(occupiedCells);
 
 }
 
@@ -391,8 +395,9 @@ window.onload = function () {
     customRange3.addEventListener('mousemove', this.cambiarValores)
     customRange4.addEventListener('mousemove', this.cambiarValores)
 
+    datos2.innerHTML += '%'
+
     startBtn.addEventListener('click', dibujarTabla)
-    // stopBtn.addEventListener('click', dibujarStop)
 
     CreateMars(tableSize.x, tableSize.y)
     CreateMars.prototype.createObstaculos(numObstaculos)
@@ -421,8 +426,6 @@ window.onload = function () {
     })
 
 
-
-
 }
 
 
@@ -430,12 +433,16 @@ function dibujarTabla() {
 
 
     occupiedCells = []
+    obstaculosArray = []
 
     let lienzo = document.getElementById("lienzo")
     let anchoTabla = document.getElementById('customRange1').value
     let numObst = document.getElementById('customRange2').value
     let numComandos = document.getElementById('customRange3').value
     let VelVision = document.getElementById('customRange4').value
+
+
+    numCommands = numComandos
 
     tableSize.x = anchoTabla
     tableSize.y = anchoTabla
@@ -450,9 +457,6 @@ function dibujarTabla() {
     CreateMars(anchoTabla, anchoTabla)
     CreateMars.prototype.createObstaculos(numObstaculos)
 
-    numCommands = numComandos
-
-    // console.log('numCommands: ' + numCommands);
 
     initRovers(rover1, rover2, rover3)
 
@@ -477,9 +481,6 @@ function dibujarTabla() {
 
     })
 
-
-
-
 }
 
 function cambiarValores() {
@@ -492,7 +493,8 @@ function cambiarValores() {
     let anchoTabla = datos1.value
     let numObst = datos2.value
     let numComandos = datos3.value
-    // let velCommands = document.getElementById('customRange4').value
+
+    datos2.innerHTML += '%'
 
     numCommands = numComandos
 
@@ -502,12 +504,6 @@ function cambiarValores() {
     fontSize = window.innerHeight / (anchoTabla * 2.5)
 
     numObstaculos = numObst * (anchoTabla * anchoTabla) / 100
-
-}
-
-function dibujarStop() {
-
-    console.log('STOP');
 
 }
 
